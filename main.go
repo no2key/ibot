@@ -5,14 +5,13 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"github.com/gorilla/schema"
 	"github.com/miekg/ibot/robots"
 )
 
 func main() {
-//	http.HandleFunc("/", SlashCommandHandler)
+	//	http.HandleFunc("/", SlashCommandHandler)
 	http.HandleFunc("/", HookHandler)
 
 	StartServer()
@@ -31,11 +30,11 @@ func HookHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println("Couldn't parse post request:", err)
 	}
 	log.Printf("Recieved command: %s from \"%s\"\n", command.Text[1:len(command.Text)], command.TeamDomain)
-	//Assume outgoing webhooks are preceded with a character
-	c := strings.Split(command.Text[1:len(command.Text)], " ")
-	command.Robot = c[0]
-	command.Text = strings.Join(c[1:], " ")
 
+	// webhook first command is a 1 (in our case)
+	command.Robot = string(command.Text[0])
+
+	println("robot", command.Robot)
 	robot := GetRobot(command.Robot)
 	if robot == nil {
 		jsonResp(w, "No robot for that command yet :(")
