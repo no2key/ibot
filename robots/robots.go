@@ -1,14 +1,13 @@
 package robots
 
-type RobotsBot struct {
-}
+type RobotsBot struct {}
 
 func init() {
 	r := &RobotsBot{}
 	RegisterRobot("c", r)
 }
 
-func (r *RobotsBot) Run(p *Payload) (slashCommandImmediateReturn string) {
+func (r *RobotsBot) Run(p *Payload) string {
 	output := ""
 	for command, r := range Robots {
 		output = output + "\n" + command + " - " + r.Description() + "\n"
