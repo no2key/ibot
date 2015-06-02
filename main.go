@@ -12,8 +12,9 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", SlashCommandHandler)
-	//HandleFunc("/slack_hook", HookHandler)
+//	http.HandleFunc("/", SlashCommandHandler)
+	http.HandleFunc("/", HookHandler)
+
 	StartServer()
 }
 
@@ -42,28 +43,6 @@ func HookHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	jsonResp(w, robot.Run(&command.Payload))
-}
-
-func SlashCommandHandler(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseForm()
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	d := schema.NewDecoder()
-	command := new(robots.SlashCommand)
-	err = d.Decode(command, r.PostForm)
-	if err != nil {
-		log.Println("Couldn't parse post request:", err)
-	}
-	log.Printf("commmand seen %+v\n" command)
-	command.Robot = command.Command
-	robot := GetRobot(command.Robot)
-	if robot == nil {
-		plainResp(w, "No robot for that command yet :(")
-		return
-	}
-	plainResp(w, robot.Run(&command.Payload))
 }
 
 func jsonResp(w http.ResponseWriter, msg string) {

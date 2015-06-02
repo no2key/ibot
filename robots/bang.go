@@ -4,8 +4,7 @@ import (
 	"fmt"
 )
 
-type PingBot struct {
-}
+type PingBot struct {}
 
 func init() {
 	p := &PingBot{}
