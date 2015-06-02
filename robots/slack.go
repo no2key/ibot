@@ -8,11 +8,6 @@ import (
 	"path/filepath"
 )
 
-type SlashCommand struct {
-	Payload
-	Command string `schema:"command"`
-}
-
 type Payload struct {
 	Token       string  `schema:"token"`
 	TeamID      string  `schema:"team_id"`
