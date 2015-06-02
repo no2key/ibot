@@ -1,0 +1,3 @@
+* use flags for the config and port and domains:
+    domain:token domain:token
+    etc
