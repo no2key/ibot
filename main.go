@@ -67,6 +67,7 @@ func HookHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if command.Payload.Token != token {
+		log.Printf("token mismatch, got %s, expected %s", command.Payload.Token, token)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
