@@ -1,6 +1,9 @@
 package robot
 
-import "strings"
+import (
+	"log"
+	"strings"
+)
 
 type BangBot struct{}
 
@@ -11,21 +14,19 @@ var subshort map[string]string
 func init() { Register("!", &BangBot{}) }
 
 func (b BangBot) Run(p *Payload) string {
-	// everything up to the first space is the command
 	n := strings.Index(p.Text, " ")
+	if n == -1 {
+		log.Printf("no command found for: %s", p.Text)
+		return "no command found for " + p.Text
+	}
+	log.Printf("running: %s", p.Text)
 	cmd, ok := subcommand[p.Text[:n]]
 	if ok {
 		p.Text = p.Text[n+1:]
 		s := cmd(p)
 		return s
 	}
-	// Check subcommands and run the bot
 	return "no command found for " + p.Text
-}
-
-func (b BangBot) Description() string {
-	// return all descriptions
-	return "Bang bot!\n\tUsage: !<command>\n\tExpected Response: @user: Pong!"
 }
 
 func SubRegister(cmd, short string, f func(*Payload) string, description string) {

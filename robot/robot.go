@@ -22,7 +22,6 @@ type OutgoingWebHook struct {
 
 type Roboter interface {
 	Run(p *Payload) string
-	Description() string
 }
 
 var robots = make(map[string]Roboter)
