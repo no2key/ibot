@@ -13,8 +13,9 @@ func Help(p *Payload) string {
 	s := ""
 	if p.Text == "" {
 		// TODO(miek): sort
+		s = "COMMAND\t\tHELP\n"
 		for cmd, help := range subshort {
-			s += cmd + " - " + help + "\n"
+			s += cmd + "\t\t" + help + "\n"
 		}
 		return s
 	}
