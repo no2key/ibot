@@ -20,13 +20,14 @@ func (b BangBot) Run(p *Payload) string {
 	n := strings.Index(p.Text, " ")
 	if n != -1 {
 		cmd = p.Text[:n]
-		p.Text = p.Text[n:]
+		// TODO(miek): can overflow. At least check/test
+		p.Text = p.Text[n+1:]
 	} else {
 		cmd = p.Text
 		p.Text = ""
 	}
 
-	log.Printf("running: %s", cmd)
+	log.Printf("running: %s with %s", cmd, p.Text)
 	c, ok := subcommand[cmd]
 	if ok {
 		s := c(p)
