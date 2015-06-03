@@ -1,7 +1,7 @@
 package robot
 
 func init() {
-	SubRegister("ping", Ping,
+	SubRegister("ping", "ping a user", Ping,
 		`Ping bot!
 	Usage: !ping
 	Expected Response: @user: Pong!`)

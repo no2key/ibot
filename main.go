@@ -56,12 +56,11 @@ func HookHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println("couldn't parse post request:", err)
 	}
-	log.Printf("recieved command: %s from \"%s\"\n", command.Text[1:len(command.Text)], command.TeamDomain)
+	log.Printf("recieved command: %s from \"%s\"\n", command.Text, command.TeamDomain)
 
 	// webhook first command is a 1 (in our case)
 	command.Robot = string(command.Text[0])
 
-	println("robot", command.Robot)
 	rb := robot.Robot(command.Robot)
 	if rb == nil {
 		jsonResp(w, "no robot that command yet :(")
@@ -73,6 +72,8 @@ func HookHandler(w http.ResponseWriter, r *http.Request) {
 
 func jsonResp(w http.ResponseWriter, msg string) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+
+
 	resp := map[string]string{"text": msg}
 	r, err := json.Marshal(resp)
 	if err != nil {
