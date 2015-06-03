@@ -45,5 +45,5 @@ func SubRegister(cmd, short string, f func(*Payload) string, description string)
 
 	subcommand[cmd] = f
 	subdescription[cmd] = description
-	subshort[cmd] = description
+	subshort[cmd] = short
 }
