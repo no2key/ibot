@@ -19,6 +19,11 @@ func (b BangBot) Description() (string) {
 }
 
 func SubRegister(cmd string, f func(*Payload)string, description string) {
+	if subcommand == nil {
+		subcommand = make(map[string]func(*Payload)string)
+		subdescription = make(map[string]string)
+	}
+
 	subcommand[cmd] = f
 	subdescription[cmd] = description
 }

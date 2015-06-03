@@ -29,6 +29,7 @@ func main() {
 	}
 
 	tokens := strings.Split(token, ",")
+	domainToken = make(map[string]string)
 	for _, s := range tokens {
 		tok := strings.Split(s, ":")
 		if len(tok) != 2 {
