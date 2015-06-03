@@ -39,7 +39,7 @@ func main() {
 	}
 	//	http.HandleFunc("/", SlashCommandHandler)
 	http.HandleFunc("/", HookHandler)
-	log.Printf("Starting HTTP server on %d", port)
+	log.Printf("starting HTTP server on %d", port)
 	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(port), nil))
 }
 
@@ -53,9 +53,9 @@ func HookHandler(w http.ResponseWriter, r *http.Request) {
 	command := new(robot.OutgoingWebHook)
 	err = d.Decode(command, r.PostForm)
 	if err != nil {
-		log.Println("Couldn't parse post request:", err)
+		log.Println("couldn't parse post request:", err)
 	}
-	log.Printf("Recieved command: %s from \"%s\"\n", command.Text[1:len(command.Text)], command.TeamDomain)
+	log.Printf("recieved command: %s from \"%s\"\n", command.Text[1:len(command.Text)], command.TeamDomain)
 
 	// webhook first command is a 1 (in our case)
 	command.Robot = string(command.Text[0])
@@ -63,7 +63,7 @@ func HookHandler(w http.ResponseWriter, r *http.Request) {
 	println("robot", command.Robot)
 	rb := robot.Robot(command.Robot)
 	if rb == nil {
-		jsonResp(w, "No rb for that command yet :(")
+		jsonResp(w, "no robot that command yet :(")
 		return
 	}
 	w.WriteHeader(http.StatusOK)
@@ -75,7 +75,7 @@ func jsonResp(w http.ResponseWriter, msg string) {
 	resp := map[string]string{"text": msg}
 	r, err := json.Marshal(resp)
 	if err != nil {
-		log.Println("Couldn't marshal hook response:", err)
+		log.Println("couldn't marshal hook response:", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

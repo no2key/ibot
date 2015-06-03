@@ -1,7 +1,5 @@
 package robot
 
-import "fmt"
-
 type Payload struct {
 	Token       string  `schema:"token"`
 	TeamID      string  `schema:"team_id"`
@@ -76,18 +74,14 @@ type AttachmentField struct {
 }
 
 type Roboter interface {
-	Run(p *Payload) (botString string)
-	Description() (description string)
+	Run(p *Payload) string
+	Description() string
 }
 
 var robots = make(map[string]Roboter)
 
-func Register(command string, r Roboter) error {
-	if _, ok := robots[command]; ok {
-		return fmt.Errorf("there are two robots mapped to %s", command)
-	}
+func Register(command string, r Roboter) {
 	robots[command] = r
-	return nil
 }
 
 func Robot(command string) Roboter {

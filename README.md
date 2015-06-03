@@ -66,3 +66,11 @@ The bot will respond to commands of the form `/bot param param param`
 ## Running
 
 `./ibot -token <domain:token>`
+
+
+    {
+        "port": 9999,
+        "domain_tokens": {
+            "atoom":  "z4zkdTAtlxuy1dZnWXhEUtSb"
+        }
+    }
