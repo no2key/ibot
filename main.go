@@ -38,7 +38,6 @@ func main() {
 		}
 		domainToken[tok[0]] = tok[1]
 	}
-	//	http.HandleFunc("/", SlashCommandHandler)
 	http.HandleFunc("/", HookHandler)
 	log.Printf("starting HTTP server on %d", port)
 	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(port), nil))
@@ -58,7 +57,6 @@ func HookHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("recieved command: %s from \"%s\"\n", command.Text, command.TeamDomain)
 
-	// webhook first command is a 1 (in our case)
 	command.Robot = string(command.Text[0])
 
 	rb := robot.Robot(command.Robot)
@@ -87,9 +85,4 @@ func jsonResp(w http.ResponseWriter, msg string) {
 		return
 	}
 	w.Write(r)
-}
-
-func plainResp(w http.ResponseWriter, msg string) {
-	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-	w.Write([]byte(msg))
 }
