@@ -66,8 +66,8 @@ func HookHandler(w http.ResponseWriter, r *http.Request) {
 		jsonResp(w, "no robot that command yet :(")
 		return
 	}
-	if command.Payload.Token != token {
-		log.Printf("token mismatch, got %s, expected %s", command.Payload.Token, token)
+	if command.Payload.Token != domainToken[command.TeamDomain] {
+		log.Printf("token mismatch, got %s, expected %s", command.Payload.Token, domainToken[command.TeamDomain])
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
