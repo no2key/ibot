@@ -1,11 +1,9 @@
-package robots
+package robot
 
 import (
-	"encoding/json"
 	"flag"
-	"io/ioutil"
 	"log"
-	"path/filepath"
+	"strings"
 )
 
 type Payload struct {
@@ -81,35 +79,29 @@ type AttachmentField struct {
 	Short bool   `json:"short,omitempty"`
 }
 
-type Configuration struct {
-	Port         int               `json:"port"`
-	DomainTokens map[string]string `json:"domain_tokens"`
-}
-
 type Robot interface {
 	Run(p *Payload) (botString string)
 	Description() (description string)
 }
 
 var Robots = make(map[string]Robot)
-var Config = new(Configuration)
-var ConfigDirectory = flag.String("c", ".", "Configuration directory (default .)")
+
+var (
+	port       int
+	domainToen map[string]string
+
+	token string
+)
 
 func init() {
+	flag.IntVar(&port, "port", 9999, "port to listen on")
+	flag.StringVar(&token, "token", "", "domain tokens as <domain:token>,<domain:token>")
 	flag.Parse()
-	configFile := filepath.Join(*ConfigDirectory, "config.json")
-	config, err := ioutil.ReadFile(configFile)
-	if err != nil {
-		log.Fatal("Error opening config: ", err)
-	}
 
-	err = json.Unmarshal(config, Config)
-	if err != nil {
-		log.Fatal("Error parsing config: ", err)
+	tokens := strings.Split(token, ",")
+	for _, s := range tokens {
+		println(s)
 	}
-
-	log.Printf("Found %d domain configurations", len(Config.DomainTokens))
-	log.Printf("Port: %d", Config.Port)
 }
 
 func RegisterRobot(command string, r Robot) {

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/schema"
 	"github.com/miekg/ibot/robots"
@@ -13,8 +12,8 @@ import (
 func main() {
 	//	http.HandleFunc("/", SlashCommandHandler)
 	http.HandleFunc("/", HookHandler)
-
-	StartServer()
+	log.Printf("Starting HTTP server on %s", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
 func HookHandler(w http.ResponseWriter, r *http.Request) {
@@ -59,15 +58,6 @@ func jsonResp(w http.ResponseWriter, msg string) {
 func plainResp(w http.ResponseWriter, msg string) {
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Write([]byte(msg))
-}
-
-func StartServer() {
-	port := robots.Config.Port
-	log.Printf("Starting HTTP server on %d", port)
-	err := http.ListenAndServe(":"+strconv.Itoa(port), nil)
-	if err != nil {
-		log.Fatal("Server start error: ", err)
-	}
 }
 
 func GetRobot(command string) robots.Robot {
