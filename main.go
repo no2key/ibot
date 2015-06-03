@@ -66,13 +66,17 @@ func HookHandler(w http.ResponseWriter, r *http.Request) {
 		jsonResp(w, "no robot that command yet :(")
 		return
 	}
+	if command.Payload.Token != token {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
 	jsonResp(w, rb.Run(&command.Payload))
 }
 
 func jsonResp(w http.ResponseWriter, msg string) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-
 
 	resp := map[string]string{"text": msg}
 	r, err := json.Marshal(resp)

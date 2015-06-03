@@ -1,12 +1,14 @@
 package robot
 
 func init() {
-	SubRegister("ping", "ping a user", Ping,
-		`Ping bot!
-	Usage: !ping
-	Expected Response: @user: Pong!`)
+	SubRegister("ping", "ping your self", Ping,
+		`Ping
+	Synopsis: !ping
+
+	Description: Ping your self, the expected response will
+	be: @user: Pong!`)
 }
 
 func Ping(p *Payload) string {
-	return "@user: pong!"
+	return "@" + p.UserID + ": pong!"
 }
