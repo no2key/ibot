@@ -1,11 +1,8 @@
-package robots
+package robot
 
 type BangBot struct{}
 
-func init() {
-	b := &BangBot{}
-	RegisterRobot("!", b)
-}
+func init() { Register("!", &BangBot{}) }
 
 func (b BangBot) Run(p *Payload) string {
 	return "fuck you too"

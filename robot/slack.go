@@ -1,10 +1,6 @@
 package robot
 
-import (
-	"flag"
-	"log"
-	"strings"
-)
+import "fmt"
 
 type Payload struct {
 	Token       string  `schema:"token"`
@@ -79,36 +75,24 @@ type AttachmentField struct {
 	Short bool   `json:"short,omitempty"`
 }
 
-type Robot interface {
+type Roboter interface {
 	Run(p *Payload) (botString string)
 	Description() (description string)
 }
 
-var Robots = make(map[string]Robot)
+var robots = make(map[string]Roboter)
 
-var (
-	port       int
-	domainToen map[string]string
-
-	token string
-)
-
-func init() {
-	flag.IntVar(&port, "port", 9999, "port to listen on")
-	flag.StringVar(&token, "token", "", "domain tokens as <domain:token>,<domain:token>")
-	flag.Parse()
-
-	tokens := strings.Split(token, ",")
-	for _, s := range tokens {
-		println(s)
+func Register(command string, r Roboter) error {
+	if _, ok := robots[command]; ok {
+		return fmt.Errorf("there are two robots mapped to %s", command)
 	}
+	robots[command] = r
+	return nil
 }
 
-func RegisterRobot(command string, r Robot) {
-	if _, ok := Robots[command]; ok {
-		log.Printf("There are two robots mapped to %s!", command)
-	} else {
-		log.Printf("Registered: %s", command)
-		Robots[command] = r
+func Robot(command string) Roboter {
+	if r, ok := robots[command]; ok {
+		return r
 	}
+	return nil
 }
