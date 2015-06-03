@@ -14,19 +14,25 @@ var subshort map[string]string
 func init() { Register("!", &BangBot{}) }
 
 func (b BangBot) Run(p *Payload) string {
+	p.Text = p.Text[1:]
+	cmd := ""
+
 	n := strings.Index(p.Text, " ")
-	if n == -1 {
-		log.Printf("no command found for: %s", p.Text)
-		return "no command found for " + p.Text
+	if n != -1 {
+		cmd = p.Text[:n]
+		p.Text = p.Text[n:]
+	} else {
+		cmd = p.Text
+		p.Text = ""
 	}
-	log.Printf("running: %s", p.Text)
-	cmd, ok := subcommand[p.Text[:n]]
+
+	log.Printf("running: %s", cmd)
+	c, ok := subcommand[cmd]
 	if ok {
-		p.Text = p.Text[n+1:]
-		s := cmd(p)
+		s := c(p)
 		return s
 	}
-	return "no command found for " + p.Text
+	return "no command found for " + cmd
 }
 
 func SubRegister(cmd, short string, f func(*Payload) string, description string) {
