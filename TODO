@@ -1,6 +1,3 @@
-text/tabwritter
-
-
 * bot name: "username": "new-bot-name",
     "icon_emoji": ":ghost:"  :imp:
-* bot subcommands
+* documentation, README and the functions

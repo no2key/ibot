@@ -1,5 +1,10 @@
 package robot
 
+import (
+	"bytes"
+	"fmt"
+)
+
 func init() {
 	SubRegister("help", "get help", Help,
 		`Help
@@ -10,17 +15,17 @@ func init() {
 }
 
 func Help(p *Payload) string {
-	s := ""
 	if p.Text == "" {
-		// TODO(miek): sort
-		s = "COMMAND\t\tHELP\n"
+		b := &bytes.Buffer{}
+		w := tabWriter(b)
+		fmt.Fprintf(w, "COMMAND\tHELP\n")
 		for cmd, help := range subshort {
-			s += cmd + "\t\t" + help + "\n"
+			fmt.Fprintf(w, cmd+"\t"+help+"\n")
 		}
-		return s
+		return b.String()
 	}
 	if v, ok := subdescription[p.Text]; ok {
-			return v
+		return v
 	}
 	return "no help available for " + p.Text
 }

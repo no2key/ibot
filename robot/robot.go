@@ -1,5 +1,10 @@
 package robot
 
+import (
+	"io"
+	"text/tabwriter"
+)
+
 type Payload struct {
 	Token       string  `schema:"token"`
 	TeamID      string  `schema:"team_id"`
@@ -18,6 +23,14 @@ type Payload struct {
 type OutgoingWebHook struct {
 	Payload
 	TriggerWord string `schema:"trigger_word"`
+}
+
+func tabWriter(w io.Writer) *tabwriter.Writer {
+	w1 := new(tabwriter.Writer)
+
+	// Format in tab-separated columns with a tab stop of 8.
+	w1.Init(w, 8, 0, 1, ' ', 0)
+	return w1
 }
 
 type Roboter interface {
