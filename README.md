@@ -1,7 +1,7 @@
 # Ibot
 
-Based on [slackbot](https://github.com/trinchan/slackbot), but completely reworked and functionality ripped out.
-
+Based on [slackbot](https://github.com/trinchan/slackbot), but completely
+reworked and functionality ripped out.
 
 
 Dependencies
@@ -25,20 +25,6 @@ That's really all you care about right now.  You can set the default Icon, Name,
 Assuming you've already pulled the source, and successfully compiled/installed, you should have a `slackbot` executable in your `$GOPATH/bin`.  You need to create a file named `config.json` and give your bot the proper credentials to send messages to your slack server.  Feel free to place the file in the a sub-folder if you want to be all organized like that.  If you want to attach more than one slack server to your bot, you can simply add another entry under "domain_tokens".
 
 The config file (config.json) has the following format:
-
-```json
-{
-    "port": PORT_FOR_BOT,
-    "domain_tokens": {
-        "YOUR_SLACK_DOMAIN":       "YOUR_SLACK_INCOMING_WEBHOOK_TOKEN",
-        "YOUR_OTHER_SLACK_DOMAIN": "MATCHING_INCOMING_WEBHOOK_TOKEN"
-    }
-}
-```
-Note that the last "domain_token" does NOT have a comma at the end of the line (but the others do)
-
-###Send messages to your bot
-This framework can respond to "slash commands" and "outgoing webhooks"  If you want users to be able to silently type `/ping`, and have the ping-bot respond in their channel, then you'll want to set up "slash commands".  Each bot will need it's own command setup.  The other option is to configure an outgoing webhook with a symbol for the prefix. Exe: `!ping`.  This option only requires one configuration, but the commands will be entered into the channel as regular messages.
 
 #####Configuring an Outgoing Webhook
 I use an [Outgoing Webhook](https://my.slack.com/services/new/outgoing-webhook)
