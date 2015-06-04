@@ -78,7 +78,7 @@ func HookHandler(w http.ResponseWriter, r *http.Request) {
 func jsonResp(w http.ResponseWriter, msg string) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-	resp := map[string]string{"text": msg, "user_name": name, "icon_emoji": ":imp:"}
+	resp := map[string]string{"text": msg, "username": name, "icon_emoji": ":imp:"}
 
 	r, err := json.Marshal(resp)
 	if err != nil {
