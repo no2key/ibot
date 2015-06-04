@@ -25,7 +25,7 @@ func main() {
 	flag.Parse()
 
 	if token == "" {
-		log.Fatal("need tokens to start")
+		log.Fatal("need token to start")
 	}
 
 	tokens := strings.Split(token, ",")

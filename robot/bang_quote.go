@@ -1,7 +1,7 @@
 package robot
 
 func init() {
-	SubRegister("quote", "add or list quotes", Quote,
+	subRegister("quote", "add or list quotes", Quote,
 		`Quote
 Synopsis: !quote [quote]
 

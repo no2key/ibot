@@ -8,8 +8,8 @@ import (
 func TestHelp(t *testing.T) {
 	help := Help(&Payload{Text: ""})
 	n := strings.Count(help, "\n")
-	if n != 2 {
-		t.Fatalf("expected %d lines of text", 2)
+	if n != len(subcommand) {
+		t.Fatalf("expected %d lines of text", len(subcommand))
 	}
 	t.Logf("%s", help)
 }

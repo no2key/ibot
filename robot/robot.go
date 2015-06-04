@@ -5,6 +5,7 @@ import (
 	"text/tabwriter"
 )
 
+// Payload is the payload Slack sends a bot.
 type Payload struct {
 	Token       string  `schema:"token"`
 	TeamID      string  `schema:"team_id"`
@@ -20,6 +21,7 @@ type Payload struct {
 	Robot       string
 }
 
+// OutgoingWebHook is Slack's Outgoing Webhook.
 type OutgoingWebHook struct {
 	Payload
 	TriggerWord string `schema:"trigger_word"`
@@ -32,16 +34,19 @@ func tabWriter(w io.Writer) *tabwriter.Writer {
 	return w1
 }
 
+// Roboter is an interface that a Bot must implement.
 type Roboter interface {
 	Run(p *Payload) string
 }
 
 var robots = make(map[string]Roboter)
 
+// Register registers a bot.
 func Register(command string, r Roboter) {
 	robots[command] = r
 }
 
+// Robot returns a registered bot or nil.
 func Robot(command string) Roboter {
 	if r, ok := robots[command]; ok {
 		return r
