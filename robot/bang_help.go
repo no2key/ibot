@@ -11,8 +11,7 @@ func init() {
 		`Help
 Synopsis: !help [command]
 
-Description: Get a listing of all commands, or specific help on
-the command listed.`)
+Description: Get a listing of all commands, or specific help on the command listed.`)
 }
 
 // Sort sorts a map and returns the keys in sorted order.
