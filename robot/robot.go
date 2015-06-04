@@ -27,9 +27,8 @@ type OutgoingWebHook struct {
 
 func tabWriter(w io.Writer) *tabwriter.Writer {
 	w1 := new(tabwriter.Writer)
-
 	// Format in tab-separated columns with a tab stop of 8.
-	w1.Init(w, 0, 8, 1, '\t', 0)
+	w1.Init(w, 0, 8, 2, '\t', 0)
 	return w1
 }
 
