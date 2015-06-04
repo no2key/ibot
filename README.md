@@ -11,3 +11,5 @@ It works (currently) only via Outgoing Webhook on Slack.
 `./ibot -token <domain:token>`
 
     atoom:z4zkdTAtlxuy1dZnWXhEUtSb
+
+## Subcommands and Formatting
