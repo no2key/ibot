@@ -36,7 +36,8 @@ func (b BangBot) Run(p *Payload) string {
 	return "no command found for " + cmd
 }
 
-func subRegister(cmd, short string, f func(*Payload) string, description string) {
+// SubRegister registers a subcommand for the bang bot.
+func SubRegister(cmd, short string, f func(*Payload) string, description string) {
 	if subcommand == nil {
 		subcommand = make(map[string]func(*Payload) string)
 		subdescription = make(map[string]string)

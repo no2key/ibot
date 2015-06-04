@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	subRegister("help", "get help", Help,
+	SubRegister("help", "get help", Help,
 		`Help
 Synopsis: !help [command]
 
