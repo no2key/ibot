@@ -7,11 +7,9 @@ import (
 
 func TestHelp(t *testing.T) {
 	help := Help(&Payload{Text: ""})
-	n := strings.Index(help, "\n")
-	if n == -1 {
-		t.Fatal("help string must contain a newline")
+	n := strings.Count(help, "\n")
+	if n != 2 {
+		t.Fatalf("expected %d lines of text", 2)
 	}
-	if help[:n] != "COMMAND		HELP" {
-		t.Fatal("COMMAND and HELP titles not found")
-	}
+	t.Logf("%s", help)
 }

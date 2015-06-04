@@ -9,10 +9,10 @@ import (
 func init() {
 	SubRegister("help", "get help", Help,
 		`Help
-	Synopsis: !help [command]
+Synopsis: !help [command]
 
-	Description: Get a listing of all commands, or specific help on
-	the command listed.`)
+Description: Get a listing of all commands, or specific help on
+the command listed.`)
 }
 
 // Sort sorts a map and returns the keys in sorted order.
@@ -29,10 +29,7 @@ func Help(p *Payload) string {
 	if p.Text == "" {
 		b := &bytes.Buffer{}
 		w := tabWriter(b)
-		fmt.Fprintf(w, "COMMAND\tHELP\n")
-
 		keys := Sort(subshort)
-
 		for _, cmd := range keys {
 			fmt.Fprintf(w, cmd+"\t"+subshort[cmd]+"\n")
 		}
